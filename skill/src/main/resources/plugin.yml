@@ -1,0 +1,9 @@
+name: skill
+version: 3.3
+main: com.rrayy.skill.skill
+api-version: 1.19.3
+description: 스킬 플러그인
+commands:
+libraries:
+  xyz.xenondevs:particle:1.8.3
+  
