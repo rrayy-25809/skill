@@ -9,7 +9,6 @@ import java.util.UUID;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -19,7 +18,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.rrayy.skill.ability.knight;
 import com.rrayy.skill.ability.wizard;
 
-public class skill extends JavaPlugin implements CommandExecutor{
+public class skill extends JavaPlugin{
     public Map<UUID, String> ability = new HashMap<UUID, String>();
     private knight knight = new knight(this); 
     private wizard wizard = new wizard(this);
@@ -51,11 +50,20 @@ public class skill extends JavaPlugin implements CommandExecutor{
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player sendPlayer = (Player) sender;
-        if (ability.containsKey(sendPlayer.getUniqueId())) return false; //이미 능력이 있으면 취소
-        if (args[0].equals("knight")) knight.beknight(sendPlayer); //기사 만들어 주기
-        if (args[0].equals("wizard")) wizard.bewizard(sendPlayer);; //마법사 만들어 주기
-        //if (args[0].equals("knight")) knight.beknight(sendPlayer); //기사 만들어 주기
-        return false;
+        if (ability.containsKey(sendPlayer.getUniqueId())){
+            sender.sendMessage(ChatColor.RED+"이미 능력이 있습니다 '/ability delete'를 이용해 능력을 제거 후 사용해 주세요");
+            return true;
+        }else if (args[0].equals("delete")){
+            if (!ability.containsKey(sendPlayer.getUniqueId())) return false;
+            ability.remove(sendPlayer.getUniqueId());
+            sender.sendMessage(ChatColor.GREEN+"능력이 성공적으로 제거되었습니다");
+            return false;
+        }else{
+            if (args[0].equals("knight")) knight.beknight(sendPlayer); //기사 만들어 주기
+            if (args[0].equals("wizard")) wizard.bewizard(sendPlayer);; //마법사 만들어 주기
+            //if (args[0].equals("knight")) knight.beknight(sendPlayer); //기사 만들어 주기
+            return true;
+        }
     }
 }
 /* 기사: 기본적으로 철 흉갑과 방패, 돌검을 들고 시작한다.--끝

@@ -4,6 +4,9 @@ main: com.rrayy.skill.skill
 api-version: 1.19.3
 description: 스킬 플러그인
 commands:
+  ability:
+    description: 자신의 능력을 선택합니다
+    usage: /ability +(원하는 능력의 이름)
 libraries:
   xyz.xenondevs:particle:1.8.3
   

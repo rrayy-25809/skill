@@ -53,9 +53,10 @@ public class wizard implements Listener {
     }
 
     public void bewizard(Player p){
+        abilitymap = main.ability;
         if (abilitymap.get(p.getUniqueId()) == "wizard") {
             plugin.getLogger().warning("플레이어 "+p.getDisplayName()+"는 이미 마법사 입니다.");
-            p.sendMessage("당신은 이미 마법사입니다!");
+            p.sendMessage(ChatColor.RED+"당신은 이미 마법사입니다!");
             return;
         } else {
             abilitymap.put(p.getUniqueId(), "wizard");

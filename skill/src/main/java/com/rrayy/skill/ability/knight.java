@@ -3,6 +3,7 @@ package com.rrayy.skill.ability;
 import java.util.Map;
 import java.util.UUID;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
@@ -72,9 +73,10 @@ public class knight implements Listener {
     }
 
     public void beknight(Player p){
+        abilitymap = main.ability;
         if (abilitymap.containsKey(p.getUniqueId())) {
             plugin.getLogger().warning("플레이어 "+p.getDisplayName()+"는 이미 기사 입니다.");
-            p.sendMessage("당신은 이미 기사입니다!");
+            p.sendMessage(ChatColor.RED+"당신은 이미 기사입니다!");
             return;
         } else {
             abilitymap.put(p.getUniqueId(), "knight");
@@ -82,8 +84,8 @@ public class knight implements Listener {
             p.getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
             p.getInventory().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
             p.getInventory().addItem(main.ability_dye());
+            storeability();
         }
-        storeability();
     }
 
     private void storeability(){
